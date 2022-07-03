@@ -1,0 +1,11 @@
+/.metadata/
+.gradle
+.classpath
+.DS_Store
+/bin
+/build
+/servers
+*.jar
+*.war
+.settings
+target/
