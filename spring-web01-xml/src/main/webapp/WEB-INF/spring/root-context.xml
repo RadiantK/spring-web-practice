@@ -28,4 +28,5 @@
 	
 	<mybatis-spring:scan base-package="org.radi.mapper"/>
 	<context:component-scan base-package="org.radi.service" ></context:component-scan>
+	<context:component-scan base-package="org.radi.controller"></context:component-scan>
 </beans>
