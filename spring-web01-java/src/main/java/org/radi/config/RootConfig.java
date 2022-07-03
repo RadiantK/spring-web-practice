@@ -13,7 +13,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages = "org.radi.service")
+@ComponentScan(basePackages = {"org.radi.service"})
 @MapperScan(basePackages = {"org.radi.mapper"})
 public class RootConfig {
 
