@@ -36,7 +36,11 @@
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td><c:out value="${board.bno}" /></td>
-							<td><c:out value="${board.title}" /></td>
+							<td>
+								<a href="/board/get?bno=<c:out value='${board.bno}' />">
+									<c:out value="${board.title}" />
+								</a>
+							</td>
 							<td><c:out value="${board.writer}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${board.regDate}" /></td>
@@ -89,8 +93,12 @@
 
 				checkModal(result);
 
+				// replaceState({기록할 데이터}, 타이틀값, 새로운 URL값)
+				history.replaceState({}, null, null);
+				console.log(history.state);
+				
 				function checkModal(result) {
-					if (result == '') {
+					if (result == '' || history.state) {
 						return;
 					}
 
