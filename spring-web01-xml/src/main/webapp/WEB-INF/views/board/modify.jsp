@@ -52,7 +52,7 @@
 					</div>
 
 					<button type="submit" data-oper="modify" class="btn btn-default" >Modify</button>
-					<button type="submit" data-oper="modify" class="btn btn-danger" >remove</button>
+					<button type="submit" data-oper="remove" class="btn btn-danger" >remove</button>
 					<button type="submit" data-oper='list' class="btn btn-info" >List</button>
 				</form>
 
@@ -66,3 +66,28 @@
 <!-- /. row -->
 
 <%@ include file="../includes/footer.jsp"%>
+
+<script>
+	$(document).ready(function(){
+		
+		let formObj = $("form");
+		
+		$('button').on('click', function(e){
+			e.preventDefault();
+			
+			let operation = $(this).data("oper");
+			
+			console.log(operation);
+			
+			if(operation == 'remove'){
+				formObj.attr("action", "/board/remove");
+			}else if(operation == 'list'){
+				//move to list
+				formObj.attr('action', '/board/list').attr('method', 'get');
+				formObj.empty(); // 폼태그 하위요소를 지움
+			}
+			
+			formObj.submit();
+		});
+	});
+</script>

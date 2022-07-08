@@ -21,29 +21,35 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 
-					<div class="form-group">
-						<label>Bno</label> 
-						<input class="form-control" name="bno" value="<c:out value='${board.bno}'/>" readonly />
-					</div>
+				<div class="form-group">
+					<label>Bno</label> <input class="form-control" name="bno"
+						value="<c:out value='${board.bno}'/>" readonly />
+				</div>
 
-					<div class="form-group">
-						<label>Title</label> 
-						<input class="form-control" name="title" value="<c:out value='${board.title}'/>" readonly />
-					</div>
+				<div class="form-group">
+					<label>Title</label> <input class="form-control" name="title"
+						value="<c:out value='${board.title}'/>" readonly />
+				</div>
 
-					<div class="form-group">
-						<label>Text area</label>
-						<textarea rows="3" class="form-control" name="content" readonly><c:out value="${board.content }" /></textarea>
-					</div>
+				<div class="form-group">
+					<label>Text area</label>
+					<textarea rows="3" class="form-control" name="content" readonly><c:out
+							value="${board.content }" /></textarea>
+				</div>
 
-					<div class="form-group">
-						<label>Writer</label> 
-						<input class="from-control" name="writer" value="<c:out value='${board.writer}'/>" readonly />
-					</div>
+				<div class="form-group">
+					<label>Writer</label> <input class="from-control" name="writer"
+						value="<c:out value='${board.writer}'/>" readonly />
+				</div>
 
-					<button data-oper="modify" class="btn btn-default" onclick="location.href='/board/modify?bno=<c:out value="${board.bno}" />'">Modify</button>
-					<button data-oper='list' class="btn btn-info" onclick="location.href='/board/list'">List</button>
-
+				<button data-oper="modify" class="btn btn-default"
+					onclick="location.href='/board/modify?bno=<c:out value="${board.bno}" />'">Modify</button>
+				<button data-oper='list' class="btn btn-info"
+					onclick="location.href='/board/list'">List</button>
+				
+				<form id="operForm" action="/board/modify" method="get">
+					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno }'/>" />
+				</form>
 
 			</div>
 			<!-- end panel body -->
@@ -55,3 +61,20 @@
 <!-- /. row -->
 
 <%@ include file="../includes/footer.jsp"%>
+
+<script>
+	$(document).ready(function(){
+		let operForm = $('#operForm');
+		
+		$('button[data-oper="modify"]').on('click', function(e){
+			
+			operForm.attr('action', '/board/modify').submit();
+		});
+		
+		$('button[data-oper="list"]').on('click', function(){
+			operForm.find('#bno').remove();
+			operForm.attr('action', '/board/list');
+			operForm.submit();
+		});
+	});
+</script>
