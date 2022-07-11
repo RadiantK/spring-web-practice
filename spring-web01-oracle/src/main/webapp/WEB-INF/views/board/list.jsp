@@ -50,6 +50,28 @@
 					</c:forEach>
 				</table>
 				<!-- table태그의 끝 -->
+				
+				<!-- 페이지 검색처리 -->
+				<div class="row">
+					<div class="col-lg-12">
+						<form id="searchForm" action="/board/list" method="get">
+							<select name="type">
+								<option value="" <c:out value="${(pageMaker.cri.type == null) ? 'selected' : ''}"/> >--</option>
+								<option value="T" <c:out value="${(pageMaker.cri.type == 'T') ? 'selected' : ''}"/> >제목</option>
+								<option value="C" <c:out value="${(pageMaker.cri.type == 'C') ? 'selected' : ''}"/> >내용</option>
+								<option value="W" <c:out value="${(pageMaker.cri.type == 'W') ? 'selected' : ''}"/> >작성자</option>
+								<option value="TC" <c:out value="${(pageMaker.cri.type == 'TC') ? 'selected' : ''}"/> >제목 or 내용</option>
+								<option value="TW" <c:out value="${(pageMaker.cri.type == 'TW') ? 'selected' : ''}"/> >제목 or 작성자</option>
+								<option value="TCW" <c:out value="${(pageMaker.cri.type == 'TCW') ? 'selected' : ''}"/> >제목 or 내용 or 작성자</option>
+							</select>
+							
+							<input type="text" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>" />
+							<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
+							<input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
+							<button class="btn btn-default">Search</button>
+						</form>
+					</div>
+				</div>
 
 				<!-- 리스트 페이징 처리 -->
 				<div class="pull-right">
@@ -76,9 +98,12 @@
 				</div>
 				<!-- endPagination -->
 				
+				
 				<form id="actionForm" action="/board/list" method="get">
 					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
 					<input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
+					<input type="hidden" name="type" value="<c:out value='${pageMaker.cri.type}' />" />
+					<input type="hidden" name="keyword" value="<c:out value='${pageMaker.cri.keyword}' />" />
 				</form>
 
 				<!-- Modal -->
@@ -127,8 +152,9 @@
 				history.replaceState({}, null, null);
 				console.log(history.state);
 
+				// 게시글 작성 및 수정 후 모달창 처리
 				function checkModal(result) {
-					if (result == '' || history.state) {
+					if (result == null || result == '' || history.state) {
 						return;
 					}
 
@@ -140,12 +166,14 @@
 					$("#myModal").modal("show");
 				}
 
+				// 게시글 등록 버튼
 				$("#regBtn").on('click', function() {
 					self.location = "/board/register";
 				});
 				
 				let actionForm = $('#actionForm');
 				
+				// 페이징 처리 버튼들 처리
 				$('.paginate_button a').on('click', function(e){
 					e.preventDefault();
 					
@@ -155,12 +183,34 @@
 					actionForm.submit();
 				});
 				
+				// 상세페이지 이동
 				$(".move").on('click', function(e){
 					e.preventDefault();
 					actionForm.append("<input type='hidden' name='bno' value='"+
 							$(this).attr("href")+"' />");
 					actionForm.attr('action', '/board/get');
 					actionForm.submit();
+				});
+				
+				// 검색버튼 이벤트처리
+				let searchForm = $('#searchForm');
+				
+				$('#searchForm button').on('click', function(e){
+					
+					if(!searchForm.find('option:selected').val()){
+						alert('검색종류를 선택하세요');
+						return false;
+					}
+					
+					if(!searchForm.find('input[name="keyword"]').val()){
+						alert('키워드를 입력하세요');
+						return false;
+					}
+					
+					searchForm.find('input[name="pageNum"]').val("1");
+					e.preventDefault();
+					
+					searchForm.submit();
 				});
 			});
 </script>

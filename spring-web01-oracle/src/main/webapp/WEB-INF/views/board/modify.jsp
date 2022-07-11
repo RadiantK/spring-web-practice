@@ -23,6 +23,8 @@
 				<form role="form" action="/board/modify" method="post">
 					<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}'/>" />
 					<input type="hidden" name="amount" value="<c:out value='${cri.amount}'/>" />
+					<input type="hidden" name="type" value="<c:out value='${cri.type}' />" />
+					<input type="hidden" name="keyword" value="<c:out value='${cri.keyword}' />" />
 				
 					<div class="form-group">
 						<label>Bno</label> 
@@ -87,12 +89,18 @@
 			}else if(operation == 'list'){
 				//move to list
 				formObj.attr('action', '/board/list').attr('method', 'get');
+				
 				let pageNumTag = $('input[name="pageNum"]').clone();
 				let amountTag = $('input[name="amount"]').clone();
+				let typeTag = $('input[name="type"]').clone();
+				ley keywordTag = $('input[name="keyword"]').clone();
 				
 				formObj.empty(); // 폼태그 하위요소를 지움
+				
 				formObj.append(pageNumTag);
 				formObj.append(amountTag);
+				formObj.append(typeTag);
+				formObj.append(keywordTag);
 			}
 			
 			formObj.submit();
