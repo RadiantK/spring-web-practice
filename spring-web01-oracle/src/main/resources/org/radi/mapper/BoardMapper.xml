@@ -11,6 +11,27 @@
 		<![CDATA[SELECT * FROM tbl_board WHERE bno > 0]]>
 	</select>
 	
+	<!-- sql의 일부를 별도로 보관 <include refid="id"> 로 사용가능  -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title LIKE '%'||#{keyword}||'%'							
+						</when>
+						<when test="type == 'C'.toString()">
+							content LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer LIKE '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
 	<select id="getListWithPaging" resultType="org.radi.domain.BoardVO">
 		<![CDATA[
 			SELECT 
@@ -21,13 +42,19 @@
 				FROM
 					tbl_board
 				WHERE 
+		]]>
+			<include refid="criteria"></include>
+		<![CDATA[
 					ROWNUM <= #{pageNum} * #{amount} )
 			WHERE RN > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
-		SELECT NVL(count(*), 0) FROM tbl_board WHERE bno > 0
+		SELECT NVL(count(*), 0) FROM tbl_board 
+		WHERE 
+			<include refid="criteria"></include>
+			bno > 0
 	</select>
 	
 	<insert id="insert">
