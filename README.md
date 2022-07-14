@@ -26,7 +26,19 @@ CREATE DATABASE codebook;
 - security : 스프링 Security 관련 패키지
 - util : 각종 유틸리티 클래스 관련 패지키
 
+## @RestController
+@Controller는 View로 전달할 데이터를 Model 객체로 담아보낼 때 사용하게 되는데 @RestController 어노테이션을 사용하면 데이터 자체를 전달하게 된다.  
+출력하는 데이터의 방식은 XML 및 JSON을 주로 사용하며 요즘은 JSON을 주로 사용한다.  
+@GetMapping어노테이션이나 @PostMapping어노테이션을 사용할 때 produces 속성의 MediaType의 static메소드를 사용해서 출력할 방식을 정할 수 있다.  
+@Controller 어노테이션으로 출력값을 model객체가 아닌 데이터 자체를 전달하려면 @ResponseBody어노테이션을 사용해야한다. @RestController에서는 @ResponseBody 어노테이션이 생략 가능하다.
+<br/>
 
+**주요 어노테이션**
+- @RestController : REST 방식으로 동작하는 컨트롤러
+- @RequestBody : JSON 데이터를 원하는 타입의 객체로 변환해야 하는 경우에 주로 사용
+- @ResponseBody : @Controller어노테이션을 사용할 때결과값을 응답할 때 Body에 데이터를 실어서 출력한다.
+- @ResponseEntity : 데이터와 함께 HTTP헤더의 상태 메시지 등을 같이 전달하는 용도로 사용한다.
+- @PathVariable : URL 경로의 일부를 파라미터로 사용할 때 이용(일반 @Controller에서도 사용 가능)
 
 <br/>
 <br/>
