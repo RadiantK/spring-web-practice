@@ -30,9 +30,10 @@ CREATE DATABASE codebook;
 @Controller는 View로 전달할 데이터를 Model 객체로 담아보낼 때 사용하게 되는데 @RestController 어노테이션을 사용하면 데이터 자체를 전달하게 된다.  
 출력하는 데이터의 방식은 XML 및 JSON을 주로 사용하며 요즘은 JSON을 주로 사용한다.  
 @GetMapping어노테이션이나 @PostMapping어노테이션을 사용할 때 produces 속성의 MediaType의 static메소드를 사용해서 출력할 방식을 정할 수 있다.  
-@Controller 어노테이션으로 출력값을 model객체가 아닌 데이터 자체를 전달하려면 @ResponseBody어노테이션을 사용해야한다.  
+@Controller 어노테이션으로 출력값을 model객체가 아닌 데이터 자체를 전달하려면 @ResponseBody어노테이션을 사용해야한다. @RestController에서는 @ResponseBody 어노테이션이 생략 가능하다.
 - @RestController : REST 방식으로 동작하는 컨트롤러
-- @ResponseBody : 결과값을 응답할 때 Body에 실어서 데이터 자체를 
+- @ResponseBody : @Controller어노테이션을 사용할 때결과값을 응답할 때 Body에 데이터를 실어서 출력한다.
+- @ResponseEntity : 데이터와 함께 HTTP헤더의 상태 메시지 등을 같이 전달하는 용도로 사용한다.
 
 <br/>
 <br/>
