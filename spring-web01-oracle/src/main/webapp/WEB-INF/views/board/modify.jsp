@@ -93,7 +93,7 @@
 				let pageNumTag = $('input[name="pageNum"]').clone();
 				let amountTag = $('input[name="amount"]').clone();
 				let typeTag = $('input[name="type"]').clone();
-				ley keywordTag = $('input[name="keyword"]').clone();
+				let keywordTag = $('input[name="keyword"]').clone();
 				
 				formObj.empty(); // 폼태그 하위요소를 지움
 				
