@@ -64,10 +64,15 @@
 </div>
 <!-- /. row -->
 
+
+
 <%@ include file="../includes/footer.jsp"%>
+
+<script src="/resources/js/reply.js"></script>
 
 <script>
 	$(document).ready(function(){
+		
 		let operForm = $('#operForm');
 		
 		$('button[data-oper="modify"]').on('click', function(e){
@@ -80,5 +85,58 @@
 			operForm.attr('action', '/board/list');
 			operForm.submit();
 		});
+	});
+	
+	$(document).ready(function(){
+		console.log("=============");
+		console.log("JS TEST");
+		
+		let bnoValue = '<c:out value="${board.bno}"/>';
+		
+		// replyService add test 댓글 추가
+		/* replyService.add(
+			{
+				reply: "JS Test",
+				replyer: "tester",
+				bno: bnoValue
+			},
+			function(result){
+				alert("RESULT : " + result);
+			}
+		); */
+		
+		// replyService getList test 댓글 목록
+		/* replyService.getList({bno: bnoValue, page: 1}, function(list){
+			for(let i = 0, len = list.length || 0; i < len; i++){
+				console.log(list[i]);
+			}
+		}); */
+		
+		// replyService delete test 댓글 삭제
+		/* replyService.remove(2, function(count){
+			
+			console.log(count);
+			
+			if(count === 'success') {
+				alert('REMOVED');
+			}
+		}, function(err) {
+			alert('ERROR...');
+		}); */
+		
+		//replyService update test 댓글 수정
+		/* replyService.update({
+			rno : 12,
+			bno : bnoValue,
+			reply : "Modified Reply..."
+		}, function(result) {
+			alert('수정 완료...');
+		}); */
+		
+		// replyService get test 댓글 수정
+		/* replyService.get(10, function(data){
+			console.log(data);
+		}); */
+		
 	});
 </script>
