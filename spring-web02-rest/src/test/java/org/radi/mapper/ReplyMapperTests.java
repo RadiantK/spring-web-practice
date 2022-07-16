@@ -83,4 +83,13 @@ public class ReplyMapperTests {
 		replies.forEach(reply -> log.info(reply));
 	}
 	
+	@Test
+	public void testPagingList() {
+		Criteria cri = new Criteria(1, 10);
+		
+		List<ReplyVO> replies = mapper.getListWithPaging(cri, 144L);
+		
+		replies.forEach(reply -> log.info(reply));
+	}
+	
 }
