@@ -64,7 +64,39 @@
 </div>
 <!-- /. row -->
 
-
+<div class="row">
+	
+	<div class="col-lg-12">
+		
+		<!-- /.panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-comments fa-fw"></i> Reply
+			</div>
+			
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				
+				<ul class="chat">
+					<!-- start reply -->
+					<li class="left clearfix" data-rno="12">
+						<div>
+							<div class="header">
+								<strong class="primary-font">user00</strong>
+								<small class="pull-right text-muted">2022-02-02 12:12 </small>
+							</div>
+							<p>Good job!</p>
+						</div>
+					</li>
+					<!-- end reply -->
+				</ul>
+				<!-- ./ end ul -->
+			</div>
+			<!-- /.panel .chat-panel -->
+		</div>
+	</div>
+	<!-- ./ end row -->
+</div>
 
 <%@ include file="../includes/footer.jsp"%>
 
@@ -88,10 +120,10 @@
 	});
 	
 	$(document).ready(function(){
-		console.log("=============");
-		console.log("JS TEST");
+		//console.log("=============");
+		//console.log("JS TEST");
 		
-		let bnoValue = '<c:out value="${board.bno}"/>';
+		//let bnoValue = '<c:out value="${board.bno}"/>';
 		
 		// replyService add test 댓글 추가
 		/* replyService.add(
@@ -137,6 +169,36 @@
 		/* replyService.get(10, function(data){
 			console.log(data);
 		}); */
+		
+	});
+	
+	$(document).ready(function(){
+		let bnoValue = '<c:out value="${board.bno}"/>';
+		let replyUL = $('.chat');
+		
+		showList(1);
+		
+		function showList(page) {
+			
+			replyService.getList({bno : bnoValue, page : page || 1}, function(list) {
+				let str = "";
+				if(list == null || list.length == 0){
+					replyUL.html("");
+					
+					return;
+				}
+				
+				for(let i = 0, len = list.length || 0; i < len; i++) {
+					str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>";
+					str += "<div><div class='header'>";
+					str += "<strong class='primary-font'>"+list[i].replyer+"</strong>";
+					str += "<small class='pull-right text-muted'>"+replyService.displayTime(list[i].replyDate)+"</small></div>"
+					str += "<p>" + list[i].reply + "</p></div></li>";
+				}
+				
+				replyUL.html(str);
+			}); // end function
+		}// end showList
 		
 	});
 </script>
