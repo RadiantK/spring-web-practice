@@ -3,6 +3,7 @@ package org.radi.service;
 import java.util.List;
 
 import org.radi.domain.Criteria;
+import org.radi.domain.ReplyPageDTO;
 import org.radi.domain.ReplyVO;
 
 public interface ReplyService {
@@ -16,4 +17,6 @@ public interface ReplyService {
 	int remove(Long rno);
 	
 	List<ReplyVO> getList(Criteria cri, Long bno);
+	
+	ReplyPageDTO getListPage(Criteria cri, Long bno);
 }

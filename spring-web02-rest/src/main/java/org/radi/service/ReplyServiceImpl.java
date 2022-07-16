@@ -3,6 +3,7 @@ package org.radi.service;
 import java.util.List;
 
 import org.radi.domain.Criteria;
+import org.radi.domain.ReplyPageDTO;
 import org.radi.domain.ReplyVO;
 import org.radi.mapper.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,14 @@ public class ReplyServiceImpl implements ReplyService {
 		log.info("get Reply List of a Board" + bno);
 		
 		return mapper.getListWithPaging(cri, bno);
+	}
+
+	@Override
+	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+		
+		return new ReplyPageDTO(
+				mapper.getCountByBno(bno),
+				mapper.getListWithPaging(cri, bno));
 	}
 
 }
