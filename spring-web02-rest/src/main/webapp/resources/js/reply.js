@@ -64,9 +64,9 @@ let replyService = (function(){
 		});
 	}
 	
-	// 전체 댓글 수정
+	// 댓글 수정
 	function update(reply, callback, error) {
-		전
+		
 		console.log("RNO: " + reply.rno);
 		
 		$.ajax({
