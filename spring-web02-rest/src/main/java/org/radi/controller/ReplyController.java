@@ -1,8 +1,7 @@
 package org.radi.controller;
 
-import java.util.List;
-
 import org.radi.domain.Criteria;
+import org.radi.domain.ReplyPageDTO;
 import org.radi.domain.ReplyVO;
 import org.radi.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +44,33 @@ public class ReplyController {
 			: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+//	@GetMapping(value = "/pages/{bno}/{page}",
+//			produces = {
+//					MediaType.APPLICATION_XML_VALUE,
+//					MediaType.APPLICATION_JSON_VALUE })
+//	public ResponseEntity<List<ReplyVO>> getList(
+//			@PathVariable("page") int page,	@PathVariable("bno") Long bno) {
+//		
+//		log.info("getList...........");
+//		Criteria cri = new Criteria(page, 10);
+//		log.info(cri);
+//		
+//		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
+//	}
+	
 	@GetMapping(value = "/pages/{bno}/{page}",
 			produces = {
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<ReplyVO>> getList(
+	public ResponseEntity<ReplyPageDTO> getList(
 			@PathVariable("page") int page,	@PathVariable("bno") Long bno) {
 		
 		log.info("getList...........");
 		Criteria cri = new Criteria(page, 10);
+		log.info("get Reply List bno: " + bno);
 		log.info(cri);
 		
-		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<>(service.getListPage(cri, bno), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{rno}",
