@@ -35,7 +35,8 @@ let replyService = (function(){
 			dataType: 'json',
 			success: function(data) {
 				if(callback){
-					callback(data);
+					// callback(data); // 댓글 목록만 가져오는 경우
+					callback(data.replyCnt, data.list); // 댓글 숫자와 목록을 가져오는 경우
 				}
 			},
 			error: function(xhr, status, err) {

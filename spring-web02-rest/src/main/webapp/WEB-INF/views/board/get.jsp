@@ -101,7 +101,12 @@
 				<!-- ./ end ul -->
 			</div>
 			<!-- /.panel .chat-panel -->
+			
+			<div class="panel-footer">
+			
+			</div>
 		</div>
+		<!-- /. end panel panel-default -->
 	</div>
 	<!-- ./ end row -->
 </div>
@@ -227,24 +232,41 @@
 
 		function showList(page) {
 
-			replyService.getList({bno : bnoValue,	page : page || 1}, function(list) {
-								let str = "";
-								if (list == null || list.length == 0) {
-									replyUL.html("");
+			console.log("show list " + page);
+			
+			replyService.getList(
+				{bno : bnoValue,	page : page || 1}, 
+				function(replyCnt, list) {
+					
+					console.log("replyCnt " + replyCnt);
+					// console.log("list: " + list);
+					
+					// 새 댓글을 등록했을 때 page를 -1을 리턴해서 전체 댓글의 숫자를 파악할 수 있도록 함
+					if(page == -1) { 
+						pageNum = Math.ceil(replyCnt / 10.0);
+						showList(pageNum);
+						return;
+					}
+					
+					let str = "";
+					if (list == null || list.length == 0) {
+						// replyUL.html("");
 
-									return;
-								}
+						return;
+					}
 
-								for (let i = 0, len = list.length || 0; i < len; i++) {
-									str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>";
-									str += "<div><div class='header'>";
-									str += "<strong class='primary-font'>"+list[i].replyer+"</strong>";
-									str += "<small class='pull-right text-muted'>"+replyService.displayTime(list[i].replyDate)+"</small></div>"
-									str += "<p>"+list[i].reply+"</p></div></li>";
-								}
+					for (let i = 0, len = list.length || 0; i < len; i++) {
+						str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>";
+						str += "<div><div class='header'>";
+						str += "<strong class='primary-font'>"+list[i].replyer+"</strong>";
+						str += "<small class='pull-right text-muted'>"+replyService.displayTime(list[i].replyDate)+"</small></div>"
+						str += "<p>"+list[i].reply+"</p></div></li>";
+					}
 
-								replyUL.html(str);
-							}); // end function
+					replyUL.html(str);
+					
+					showReplyPage(replyCnt);
+				}); // end function
 		}// end showList
 
 		// 댓글 모달 처리
@@ -283,7 +305,8 @@
 				modal.find('input').val("");
 				modal.modal("hide");
 				
-				showList(1);
+				// showList(1);
+				showList(-1); // 댓글목록 수를 다시 읽어올 수있도록 -1 리턴
 			});
 		});
 		
@@ -318,7 +341,7 @@
 				alert(result);
 				
 				modal.modal('hide');
-				showList(1);
+				showList(pageNum);
 			});
 		});
 		
@@ -330,8 +353,69 @@
 				alert(result);
 				
 				modal.modal('hide');
-				showList(1);
+				showList(pageNum);
 			});
+		});
+		
+		// 댓글 페이징 처리
+		let pageNum = 1;
+		let replyPageFooter = $('.panel-footer');
+		
+		function showReplyPage(replyCnt) {
+			
+			let endNum = Math.ceil(pageNum / 10.0) * 10;
+			let startNum = endNum - 9;
+			
+			let prev = startNum != 1; // 이전 버튼
+			let next = false; // 다음 버튼
+			
+			if(endNum * 10 >= replyCnt) {
+				endNum = Math.ceil(replyCnt / 10.0);
+			}
+			
+			if(endNum * 10 < replyCnt) {
+				next = true;
+			}
+			
+			let str = "<ul class='pagination pull-right'>";
+			
+			if(prev) {
+				str += "<li class='page-item'>" + 
+					"<a class='page-link' href='"+(startNum-1)+"'>Prev</a></li>"
+			}
+			
+			for(let i = startNum; i <= endNum; i++) {
+				
+				let active = pageNum == i ? "active" : "";
+				
+				str += "<li class='page-item "+active+"'>" +
+					"<a class='page-link' href='"+i+"'>"+i+"</a></li>";
+			}
+			
+			if(next) {
+				str += "<li class='page-item'>" + 
+					"<a class='page-link' href='"+(endNum+1)+"'>Next</a></li>";
+			}
+			str += "</ul>";
+			
+			// console.log("str : " + str);
+			
+			replyPageFooter.html(str);
+		}
+		
+		// 페이지 번호 클릭 시 새 댓글 가져오기
+		replyPageFooter.on("click", "li a", function(e){
+			e.preventDefault();
+			
+			console.log("page click");
+			
+			let targetPageNum = $(this).attr("href");
+			
+			console.log("targetPageNum: " + targetPageNum);
+			
+			pageNum = targetPageNum;
+			
+			showList(pageNum);
 		});
 	});
 </script>
