@@ -50,3 +50,13 @@ WHERE rn > 10 AND rn <= 20;
 
 
 -- tbl_reply
+
+-- 페이징
+SELECT rno, bno, reply, replyer, replydate, updatedate
+FROM (
+    SELECT /*+ INDEX(tbl_reply idx_reply */
+        ROWNUM rn, bno, rno, reply, replyer, replydate, updatedate
+    FROM tbl_reply
+    WHERE bno = 144 AND rno > 0
+    )
+WHERE rn > 5 AND rn <= 15;
