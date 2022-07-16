@@ -6,10 +6,22 @@
 <mapper namespace="org.radi.mapper.ReplyMapper">
 
 	<select id="getListWithPaging" resultType="org.radi.domain.ReplyVO">
+		<![CDATA[
 		SELECT rno, bno, reply, replyer, replydate, updatedate
-		FROM tbl_reply
-		WHERE bno = #{bno}
-		ORDER BY rno asc
+		FROM (
+		    SELECT /*+ INDEX(tbl_reply idx_reply */
+		        ROWNUM rn, bno, rno, reply, replyer, replydate, updatedate
+		    FROM tbl_reply
+		    WHERE bno = #{bno} AND rno > 0
+		    )
+		WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
+		]]>
+	</select>
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+			SELECT NVL(COUNT(rno), 0) FROM tbl_reply WHERE bno = #{bno}
+		]]>
 	</select>
 
 	<select id="read" resultType="org.radi.domain.ReplyVO">

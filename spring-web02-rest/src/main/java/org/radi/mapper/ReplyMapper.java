@@ -12,6 +12,8 @@ public interface ReplyMapper {
 			@Param("cri") Criteria cri,
 			@Param("bno") Long bno);
 	
+	int getCountByBno(Long bno);
+	
 	ReplyVO read(long rno); // 특정 댓글 읽기
 	
 	int insert(ReplyVO vo);
