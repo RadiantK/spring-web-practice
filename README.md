@@ -41,6 +41,18 @@ ResponseEntity : 데이터와 함께 HTTP헤더의 상태 메시지 등을 같�
 - @ResponseBody : @Controller어노테이션을 사용할 때결과값을 응답할 때 Body에 데이터를 실어서 출력한다.
 - @PathVariable : URL 경로의 일부를 파라미터로 사용할 때 이용(일반 @Controller에서도 사용 가능)
 
+
+## AOP
+AOP는 관점 지향 프로그래밍이라는 뜻으로 프로그래밍에 있어 핵심 로직이 아닌 공통의 관심사(부가기능)을 수행하는 방법이다.
+<br/>
+
+**AOP 용어**
+- Target : 개발자가 작성한 핵심 비즈니스 로직을 갖는 객체로 어떠한 관심사(주변 로직)들과도 관계를 맺지않는 순수한 코어이다.
+- Proxy : Target을 감싸고 있는 존재이다 Proxy는 내부적으로 Target객체를 호출해서 핵심 기능은 Target객체가 처리하고 부가기능을 처리한다.
+- JoinPoint : Target객체가 가진 메소드로, 외부에서의 호출은 Proxy객체를 통해서 Target객체의 Joinpont를 호출하는 방식이다.
+- Pointcut : 어떤 메소드에 관심사를 결합할 것인지를 결정 
+
+
 <br/>
 <br/>
 <br/>
