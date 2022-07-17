@@ -60,3 +60,17 @@ FROM (
     WHERE bno = 144 AND rno > 0
     )
 WHERE rn > 5 AND rn <= 15;
+
+
+-- 댓글 및 댓글 수 처리
+
+alter table tbl_board add (replycnt number default  0);
+
+alter table tbl_board drop column replycnt;
+
+update tbl_board set replycnt = (
+    SELECT count(rno) FROM tbl_reply
+    WHERE tbl_board.bno = tbl_reply.bno);
+    
+-- 복구시킬 때
+alter table tbl_board drop column replycnt;
