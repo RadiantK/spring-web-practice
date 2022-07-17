@@ -5,6 +5,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Ajax업로드</title>
+<style>
+	.uploadResult {
+		width: 100%;
+		background-color: gray;
+	}
+	
+	.uploadResult ul {
+		display: flex;
+		flew-flow: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.uploadResult ul li {
+		list-style: none;
+		padding: 10px;
+	}
+	.uploadResult ul li img {
+		width: 20px;
+	}
+</style>
 </head>
 <body>
 	<h1>Upload With Ajax</h1>
@@ -94,7 +115,16 @@
 				
 				$(uploadResultArr).each(function(idx, obj) {
 					
-					str += "<li>" + obj.fileName + "</li>";
+					if(!obj.image) {
+						str += "<li><img src='/resources/img/attach.png'>"+obj.fileName+"</li>";
+					} else {
+						// str += "<li>" + obj.fileName + "</li>";
+						
+						let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+						
+						str += "<li><img src='/display?fileName="+fileCallPath+"'></li>";
+					}
+					
 				});
 				
 				uploadResult.append(str);
