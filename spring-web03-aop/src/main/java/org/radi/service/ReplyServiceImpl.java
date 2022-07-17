@@ -5,9 +5,11 @@ import java.util.List;
 import org.radi.domain.Criteria;
 import org.radi.domain.ReplyPageDTO;
 import org.radi.domain.ReplyVO;
+import org.radi.mapper.BoardMapper;
 import org.radi.mapper.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.log4j.Log4j;
 
@@ -18,9 +20,16 @@ public class ReplyServiceImpl implements ReplyService {
 	@Autowired
 	private ReplyMapper mapper;
 	
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	@Transactional
 	@Override
 	public int register(ReplyVO vo) {
 		log.info("register....." + vo);
+		
+		// 댓글 생성시 tbl_board replycnt컬럼 +1
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
 		
 		return mapper.insert(vo);
 	}
@@ -41,10 +50,16 @@ public class ReplyServiceImpl implements ReplyService {
 		return mapper.update(vo);
 	}
 
+	@Transactional
 	@Override
 	public int remove(Long rno) {
 		
 		log.info("remove....." + rno);
+		
+		ReplyVO vo = mapper.read(rno);
+		
+		// 댓글제거 시 tbl_board replycnt컬럼 -1
+		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		
 		return mapper.delete(rno);
 	}
