@@ -130,7 +130,24 @@
 			<version>1.18.24</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<!-- thumbnailator 섬네일 제작 -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.17</version>
+		</dependency>
+		<!-- jackson-databind 객체를 JSON/XML로 변환할 때 사용-->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.13.3</version>
+		</dependency>
+		<!-- jackson-dataformat-xml -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.13.3</version>
+		</dependency>
 		
 	</dependencies>
     <build>
@@ -152,10 +169,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
