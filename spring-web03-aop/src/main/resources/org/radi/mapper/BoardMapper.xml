@@ -34,19 +34,19 @@
 	
 	<select id="getListWithPaging" resultType="org.radi.domain.BoardVO">
 		<![CDATA[
-			SELECT 
-				bno, title, content, writer, regdate, updatedate
-			FROM (
-				SELECT /*+ INDEX_DESC(tbl_board pk_board)*/
-					ROWNUM rn, bno, title, content, writer, regdate, updatedate
-				FROM
-					tbl_board
-				WHERE 
+		SELECT 
+			bno, title, content, writer, regdate, updatedate, replycnt
+		FROM (
+			SELECT /*+ INDEX_DESC(tbl_board pk_board)*/
+				ROWNUM rn, bno, title, content, writer, regdate, updatedate, replycnt
+			FROM
+				tbl_board
+			WHERE 
 		]]>
 			<include refid="criteria"></include>
 		<![CDATA[
-					ROWNUM <= #{pageNum} * #{amount} )
-			WHERE RN > (#{pageNum} - 1) * #{amount}
+				ROWNUM <= #{pageNum} * #{amount} )
+		WHERE RN > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	
@@ -88,6 +88,12 @@
 			content = #{content},
 			writer = #{writer},
 			updateDate = sysdate
+		WHERE bno = #{bno}
+	</update>
+	
+	<update id="updateReplyCnt">
+		UPDATE tbl_board
+		SET replycnt = replycnt + #{amount}
 		WHERE bno = #{bno}
 	</update>
 	
