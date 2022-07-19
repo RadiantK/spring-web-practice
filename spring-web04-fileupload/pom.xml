@@ -116,6 +116,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- spring-test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -130,6 +131,55 @@
 			<version>1.18.24</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- aspectjweaver aspectjrt는 기본적으로 설치되어있음-->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.9.1</version>
+		</dependency>
+		<!-- spring-jdbc -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+		<!-- spring-tx -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+		<!-- HikariCP -->
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		    <version>5.0.1</version>
+		</dependency>
+		<!-- ojdbc8 -->
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>21.6.0.0.1</version>
+		</dependency>
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.7</version>
+		</dependency>
+		<!-- mybatis-spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.0.7</version>
+		</dependency>
+		<!-- preparedstatement ?가 어떤값으로 처리됐는지 확인하는 모듈 -->
+		<dependency>
+		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+		    <version>1.16</version>
+		</dependency>
+		
 		<!-- thumbnailator 섬네일 제작 -->
 		<dependency>
 		    <groupId>net.coobird</groupId>
@@ -148,6 +198,13 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>2.13.3</version>
 		</dependency>
+		<!-- gson 자바 인스턴스를 JSON 타입의 문자열로 변환 -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
+		
 		
 	</dependencies>
     <build>
