@@ -190,6 +190,7 @@ public class UploadController {
 		// remove UUID
 		String resourceOriginalName = 
 				resourceName.substring(resourceName.indexOf("_")+1);
+		log.info("resourceOriginalName: " + resourceOriginalName);
 		
 		HttpHeaders headers = new HttpHeaders();
 		
@@ -235,8 +236,8 @@ public class UploadController {
 		File file;
 		
 		try {
-			file = new File("d\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
-			
+			file = new File("d:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			log.info("fileName: " + file.getName());
 			file.delete();
 			
 			if(type.equals("image")) {

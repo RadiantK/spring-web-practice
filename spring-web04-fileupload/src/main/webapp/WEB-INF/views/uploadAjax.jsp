@@ -117,7 +117,7 @@
 				
 				formData.append('uploadFile', files[i]);
 			}
-			
+			console.log(formData);
 			//processData: false, 문자열을 쿼리스트링으로 변환할지 선택(기본값 true)
 			// 파일전송은 변환하지 않기 때문에 false
 			//contentType: false, 서버로 요청을 보낼타입 (application/x-www-form-urlencoded가 기본값)
