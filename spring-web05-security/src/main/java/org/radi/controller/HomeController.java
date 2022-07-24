@@ -1,4 +1,4 @@
-package org.radi.controlle;
+package org.radi.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

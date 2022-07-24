@@ -220,6 +220,33 @@
 		    <artifactId>quartz-jobs</artifactId>
 		    <version>2.3.2</version>
 		</dependency>
+		
+		<!-- 스프링 시큐리티 관련 모듈 -->
+		<!-- spring-security-core -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+		<!-- spring-security-web -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+		<!-- spring-security-config -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+		<!-- spring-security-taglibs -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>5.2.12.RELEASE</version>
+		</dependency>
+
 		      
 	</dependencies>
     <build>

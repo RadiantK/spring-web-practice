@@ -1,4 +1,4 @@
-package org.radi.controlle;
+package org.radi.controller;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
