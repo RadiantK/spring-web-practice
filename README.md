@@ -77,7 +77,7 @@ AOP는 관점 지향 프로그래밍이라는 뜻으로 프로그래밍에 있�
 **인가(Authorization)** : 식별된 사용자가 특정 리소스에 접근할 수 있는 권한을 부여하는 것
 - AuthenticationManager(인증 매니저) : 인증을 담당함
 - ProviderManager : 인증에 대한 처리를 AuthenticationProvider라는 타입의 객체를 이용해서 처리를 위임
-- AuthenticationProvider(인증 제공자) 실제 인증 작업을 진행. 이 때 인증된 정보에는 권한에 대한 정보를 같이 전달되는데 이 처리는 UserDetailsService와 관련됨
+- AuthenticationProvider(인증 제공자) : 실제 인증 작업을 진행. 이 때 인증된 정보에는 권한에 대한 정보를 같이 전달되는데 이 처리는 UserDetailsService와 관련됨
 - UserDetailsService인터페이스 : 실제 사용자의 정보와 사용자가 가진 권한의 정보를 처리해서 다시 반환
 
 <br/>
