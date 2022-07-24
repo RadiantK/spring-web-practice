@@ -250,6 +250,8 @@
 				
 			});
 		});
+		
+		// 바닐라자바스크립트로 해보기
 		//let uploadResultEl = document.querySelector('.uploadResult');
 		/* document.querySelector('.uploadResult').addEventListener('click', function(e){
 			if(e.target.type == 'button'){
