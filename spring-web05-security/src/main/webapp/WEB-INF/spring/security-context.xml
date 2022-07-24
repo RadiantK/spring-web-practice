@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="customAccessDenied" class="org.radi.security.CustomAccessDeniedHandler" />
+	<bean id="customLoginSuccess" class="org.radi.security.CustomLoginSuccessHandler" />
 	
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
@@ -16,7 +17,9 @@
 		
 		<!-- <security:access-denied-handler error-page="/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
-		<security:form-login/>
+		
+		<!-- <security:form-login/> -->
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
 	</security:http>
 	
 	<security:authentication-manager>
