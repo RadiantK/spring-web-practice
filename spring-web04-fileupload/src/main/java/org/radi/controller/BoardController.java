@@ -1,5 +1,8 @@
 package org.radi.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.radi.domain.BoardAttachVO;
@@ -118,7 +121,12 @@ public class BoardController {
 			@ModelAttribute("cri") Criteria cri,RedirectAttributes rttr) {
 		log.info("remove....." + bno);
 		
+		List<BoardAttachVO> attachList = service.getAttachList(bno);
+		
 		if(service.remove(bno)) {
+			// 첨부파일 제거
+			deleteFiles(attachList);
+			
 			rttr.addFlashAttribute("result", "success");
 		}
 		
@@ -128,5 +136,38 @@ public class BoardController {
 //		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list" + cri.getListLink();
+	}
+	
+	// 파일 삭제 처리
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		
+		log.info("delete attach files.................");
+		log.info(attachList);
+		
+		attachList.forEach(attach -> {
+			try {
+				// 절대 경로 정의
+				Path file = Paths.get(
+						"D:\\upload\\"+attach.getUploadPath() + 
+						"\\" + attach.getUuid() + "_" + attach.getFileName());
+				
+				Files.deleteIfExists(file); // 파일이 있으면 제거
+				
+				// 이미지 파일이면 섬네일 제거
+				if(Files.probeContentType(file).startsWith("image")) {
+					Path thumbNail = Paths.get(
+							"D:\\upload\\" + attach.getUploadPath() + "\\s_" + 
+							attach.getUuid() + "_" + attach.getFileName());
+					
+					Files.delete(thumbNail);
+				}
+			}catch(Exception e) {
+				log.error("delete file error" + e.getMessage());
+			}
+		});
 	}
 }
