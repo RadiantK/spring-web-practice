@@ -5,7 +5,7 @@
 - JAVA (JDK11)
 - MySQL (8.0.27)
 
-## mysql설정
+## MySQL설정
 ```sql
 // 사용자 생성
 CREATE USER 'codebook'@'localhost' identified by 'codebook';
@@ -14,6 +14,14 @@ flush privileges;
 
 CREATE DATABASE codebook;
 ```
+
+## Oracle 설정
+```sql
+ALTER SESSION SET “_oracle_script”=true;
+CREATE USER temp identified by temp;
+GRANT CONNECT, RESOURCE, DBA TO temp;
+```
+
 ## 프로젝트 패키지 구성
 프로젝트의 패키지 관련 Naming Convention(패키지명에 대한 규칙) 입니다.
 - config : 프로젝트와 관련딘 설정 클래스들의 보관 패키지
@@ -63,6 +71,14 @@ AOP는 관점 지향 프로그래밍이라는 뜻으로 프로그래밍에 있�
 - **격리성(Isolation)** : 트랜잭션으로 처리되는 중간에 외부에서의 간섭은 없어야만 한다.
 - **영속성(Durability)** : 트랜잭션이 성공적으로 처리되면, 그 결과는 영속적으로 보관되어야 한다.
 
+
+## 스프링 시큐리티(Security)
+**인증(Authentication)** : 자신을 증명하는 것. 즉, 사용자의 신원을 확인하는 절차(자신의 증명하는 자료를 제시하는 것)
+**인가(Authorization)** : 식별된 사용자가 특정 리소스에 접근할 수 있는 권한을 부여하는 것
+- AuthenticationManager(인증 매니저) : 인증을 담당함
+- ProviderManager : 인증에 대한 처리를 AuthenticationProvider라는 타입의 객체를 이용해서 처리를 위임
+- AuthenticationProvider(인증 제공자) 실제 인증 작업을 진행. 이 때 인증된 정보에는 권한에 대한 정보를 같이 전달되는데 이 처리는 UserDetailsService와 관련됨
+- UserDetailsService인터페이스 : 실제 사용자의 정보와 사용자가 가진 권한의 정보를 처리해서 다시 반환
 
 <br/>
 <br/>
