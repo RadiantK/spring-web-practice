@@ -205,6 +205,20 @@
 		    <version>2.9.0</version>
 		</dependency>
 		
+		<!-- 스케줄러 사용 -->
+		<!-- quartz -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.2</version>
+		</dependency>
+		<!-- quartz-jobs -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz-jobs</artifactId>
+		    <version>2.3.2</version>
+		</dependency>
+
 		
 	</dependencies>
     <build>
