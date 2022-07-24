@@ -51,3 +51,38 @@ alter table tbl_attach add constraint pk_attach primary key(uuid);
 
 alter table tbl_attach add constraint fk_board_attach 
 foreign key (bno) references tbl_board (bno);
+
+
+
+
+-- 스프링 시큐리티 지정된 테이블 사용
+create table users (
+    username varchar2(50) not null primary key,
+    password varchar2(100) not null,
+    enabled char(10) default '1'
+);
+
+create table authorities (
+    username varchar2(50) not null,
+    authority varchar2(50) not null,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
+create unique index ix_auth_username on authorities (username, authority);
+
+insert into users (username, password) values('user', '1234');
+insert into users (username, password) values('member', '1234');
+insert into users (username, password) values('admin', '1234');
+
+insert into authorities (username, authority) values('user', 'ROLE_USER');
+insert into authorities (username, authority) values('member', 'ROLE_MANAGER');
+insert into authorities (username, authority) values('admin', 'ROLE_MANAGER');
+insert into authorities (username, authority) values('admin', 'ROLE_ADMIN');
+
+delete from users;
+delete from authorities;
+
+commit;
+
+select * from users;
+select * from authorities;
