@@ -7,6 +7,7 @@ import org.radi.domain.BoardVO;
 import org.radi.domain.Criteria;
 import org.radi.mapper.BoardAttachMapper;
 import org.radi.mapper.BoardMapper;
+import org.radi.mapper.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper mapper;
 	@Autowired
 	private BoardAttachMapper attachMapper;
+	@Autowired
+	private ReplyMapper replyMapper;
 
 	@Transactional
 	@Override
@@ -49,21 +52,38 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.read(bno);
 	}
 
+	// 게시글 수정
+	@Transactional
 	@Override
 	public boolean modify(BoardVO board) {
 		
 		log.info("modify......." + board);
 		
-		return mapper.update(board) == 1;
+		attachMapper.deleteAll(board.getBno());
+		// 게시글 수정 성공
+		boolean modifyResult = mapper.update(board) == 1;
+		
+		// 첨부파일 수정
+		if(modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0) {
+			
+			board.getAttachList().forEach(attach -> {
+				attach.setBno(board.getBno());
+				attachMapper.insert(attach);
+			});
+		}
+		
+		return modifyResult;
 	}
 
+	// 게시글 제거
 	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 		
 		log.info("remove....." + bno);
 		
-		attachMapper.deleteAll(bno);
+		attachMapper.deleteAll(bno); // 첨부파일 제거
+		replyMapper.deleteAll(bno); // 댓글 제거
 		
 		return mapper.delete(bno) == 1;
 	}
