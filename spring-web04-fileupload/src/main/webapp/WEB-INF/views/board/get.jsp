@@ -22,24 +22,25 @@
 			<div class="panel-body">
 
 				<div class="form-group">
-					<label>Bno</label> <input class="form-control" name="bno"
-						value="<c:out value='${board.bno}'/>" readonly />
+					<label>Bno</label> 
+					<input class="form-control" name="bno"	value="<c:out value='${board.bno}'/>" readonly />
 				</div>
 
 				<div class="form-group">
-					<label>Title</label> <input class="form-control" name="title"
-						value="<c:out value='${board.title}'/>" readonly />
+					<label>Title</label> 
+					<input class="form-control" name="title" value="<c:out value='${board.title}'/>" readonly />
 				</div>
 
 				<div class="form-group">
 					<label>Text area</label>
-					<textarea rows="3" class="form-control" name="content" readonly><c:out
-							value="${board.content }" /></textarea>
+					<textarea rows="3" class="form-control" name="content" readonly>
+						<c:out value="${board.content }" />
+					</textarea>
 				</div>
 
 				<div class="form-group">
-					<label>Writer</label> <input class="from-control" name="writer"
-						value="<c:out value='${board.writer}'/>" readonly />
+					<label>Writer</label> 
+					<input class="from-control" name="writer"	value="<c:out value='${board.writer}'/>" readonly />
 				</div>
 
 				<button data-oper="modify" class="btn btn-default"
@@ -48,13 +49,11 @@
 					onclick="location.href='/board/list'">List</button>
 
 				<form id="operForm" action="/board/modify" method="get">
-					<input type="hidden" id="bno" name="bno"
-						value="<c:out value='${board.bno }'/>" /> <input type="hidden"
-						name="pageNum" value="<c:out value='${cri.pageNum}'/>" /> <input
-						type="hidden" name="amount" value="<c:out value='${cri.amount}'/>" />
-					<input type="hidden" name="type"
-						value="<c:out value='${cri.type}' />" /> <input type="hidden"
-						name="keyword" value="<c:out value='${cri.keyword}' />" />
+					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno }'/>" />
+					<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}'/>" />
+					<input type="hidden" name="amount" value="<c:out value='${cri.amount}'/>" />
+					<input type="hidden" name="type" value="<c:out value='${cri.type}' />" />
+					<input type="hidden" name="keyword" value="<c:out value='${cri.keyword}' />" />
 				</form>
 
 			</div>
@@ -65,6 +64,81 @@
 	<!-- end panel -->
 </div>
 <!-- /. row -->
+
+
+<div class="bigPictureWrapper">
+	<div class="bigPicture">
+	</div>
+</div>
+<style>
+	.uploadResult {
+	  width:100%;
+	  background-color: gray;
+	}
+	.uploadResult ul{
+	  display:flex;
+	  flex-flow: row;
+	  justify-content: center;
+	  align-items: center;
+	}
+	.uploadResult ul li {
+	  list-style: none;
+	  padding: 10px;
+	  align-content: center;
+	  text-align: center;
+	}
+	.uploadResult ul li img{
+	  width: 100px;
+	}
+	.uploadResult ul li span {
+	  color:white;
+	}
+	.bigPictureWrapper {
+	  position: absolute;
+	  display: none;
+	  justify-content: center;
+	  align-items: center;
+	  top:0%;
+	  width:100%;
+	  height:100%;
+	  background-color: gray; 
+	  z-index: 100;
+	  background:rgba(255,255,255,0.5);
+	}
+	.bigPicture {
+	  position: relative;
+	  display:flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	.bigPicture img {
+	  width:600px;
+	}
+</style>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">Files</div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        
+        <div class='uploadResult'> 
+          <ul>
+          </ul>
+        </div>
+      </div>
+      <!--  end panel-body -->
+    </div>
+    <!--  end panel-body -->
+  </div>
+  <!-- end panel -->
+</div>
+<!-- /.row -->
+
+
 
 <div class="row">
 
@@ -78,8 +152,7 @@
 
 			<div class="panel-heading">
 				<i class="fa fa-comments fa-fw"></i> Reply
-				<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">new
-					Reply</button>
+				<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">new Reply</button>
 			</div>
 
 			<!-- /.panel-heading -->
@@ -90,8 +163,8 @@
 					<li class="left clearfix" data-rno="12">
 						<div>
 							<div class="header">
-								<strong class="primary-font">user00</strong> <small
-									class="pull-right text-muted">2022-02-02 12:12 </small>
+								<strong class="primary-font">user00</strong>
+								<small class="pull-right text-muted">2022-02-02 12:12 </small>
 							</div>
 							<p>Good job!</p>
 						</div>
@@ -110,6 +183,7 @@
 	</div>
 	<!-- ./ end row -->
 </div>
+
 
 
 <!-- Modal -->
@@ -230,6 +304,7 @@
 
 		showList(1);
 
+		// 댓글 목록 출력
 		function showList(page) {
 
 			console.log("show list " + page);
@@ -417,5 +492,84 @@
 			
 			showList(pageNum);
 		});
+		
+		// 즉시실행 함수
+		(function(){
+			// 게시물 첨부파일 처리
+			let bno = '<c:out value="${board.bno}"/>';
+			
+			$.ajax({
+				url: '/board/getAttachList',
+				data: {
+					bno : bno
+				},
+				type : 'get',
+				dataType : 'json',
+				success: function(arr){
+					console.log("data", arr);
+					
+					let str = "";
+					
+					$(arr).each(function(idx, attach) {
+						if(attach.fileType) { // 이미지 파일이면
+							var fileCallPath = encodeURIComponent(
+									attach.uploadPath + "/s_" + attach.uuid + "_" + attach.fileName);
+						
+	           str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+	           str += "<img src='/display?fileName="+fileCallPath+"'>";
+	           str += "</div>";
+	           str +"</li>";
+	           
+						}else {
+	           str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+	           str += "<span> "+ attach.fileName+"</span><br/>";
+	           str += "<img src='/resources/img/attach.png'></a>";
+	           str += "</div>";
+	           str +"</li>";
+						}
+					});
+					
+	      	$(".uploadResult ul").html(str);
+				}
+			}); //end ajax
+		})(); // end function 즉시실행 함수 종료
+		
+		// 첨부파일 클릭 시 이벤트 처리
+ 	  $(".uploadResult").on("click","li", function(e){
+	    console.log("view image");
+	    
+	    var liObj = $(this);
+	    
+	    var path = encodeURIComponent(
+	    		liObj.data("path")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
+	    console.log("path ", path);
+	    
+	    if(liObj.data("type")){
+	      showImage(path.replace(new RegExp(/\\/g),"/"));
+	      
+	    }else {
+	      //download 
+	      self.location ="/download?fileName="+path
+	    }
+	  });
+		
+		// 섬네일 확대
+		function showImage(fileCallPath) {
+			console.log("fileCallPath ", fileCallPath)
+			
+			$(".bigPictureWrapper").css("display", "flex").show();
+			
+			$(".bigPicture")
+			.html("<img src='/display?fileName="+fileCallPath+"'/>")
+			.animate({width:'100%', height: '100%'}, 1000);
+		}
+		
+		// 창닫기
+	  $(".bigPictureWrapper").on("click", function(e){
+	    $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
+	    setTimeout(function(){
+	      $('.bigPictureWrapper').hide();
+	    }, 1000);
+	  });
 	});
 </script>
