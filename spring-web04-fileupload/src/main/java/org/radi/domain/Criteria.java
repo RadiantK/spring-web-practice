@@ -34,11 +34,12 @@ public class Criteria {
 	public String getListLink() {
 		
 		// 여러 개의 파라미터들을 연결해서 URL 형태로 만들어줌
+		// Get방식 등의 파라미터 전송에 사용되는 문자열(쿼리스트링)을 쉽게 처리하도록 도와줌
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", this.pageNum)
 				.queryParam("amount", this.getAmount())
-				.queryParam("amount", this.getType())
-				.queryParam("amount", this.getKeyword());
+				.queryParam("type", this.getType())
+				.queryParam("keyword", this.getKeyword());
 		
 		return builder.toUriString();
 	}
