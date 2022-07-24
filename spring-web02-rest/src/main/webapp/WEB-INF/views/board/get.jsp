@@ -22,39 +22,33 @@
 			<div class="panel-body">
 
 				<div class="form-group">
-					<label>Bno</label> <input class="form-control" name="bno"
-						value="<c:out value='${board.bno}'/>" readonly />
+					<label>Bno</label> <input class="form-control" name="bno"	value="<c:out value='${board.bno}'/>" readonly />
 				</div>
 
 				<div class="form-group">
-					<label>Title</label> <input class="form-control" name="title"
-						value="<c:out value='${board.title}'/>" readonly />
+					<label>Title</label> 
+					<input class="form-control" name="title" value="<c:out value='${board.title}'/>" readonly />
 				</div>
 
 				<div class="form-group">
 					<label>Text area</label>
-					<textarea rows="3" class="form-control" name="content" readonly><c:out
-							value="${board.content }" /></textarea>
+					<textarea rows="3" class="form-control" name="content" readonly><c:out value="${board.content }" /></textarea>
 				</div>
 
 				<div class="form-group">
-					<label>Writer</label> <input class="from-control" name="writer"
-						value="<c:out value='${board.writer}'/>" readonly />
+					<label>Writer</label> 
+					<input class="from-control" name="writer"	value="<c:out value='${board.writer}'/>" readonly />
 				</div>
 
-				<button data-oper="modify" class="btn btn-default"
-					onclick="location.href='/board/modify?bno=<c:out value="${board.bno}" />'">Modify</button>
-				<button data-oper='list' class="btn btn-info"
-					onclick="location.href='/board/list'">List</button>
+				<button data-oper="modify" class="btn btn-default" onclick="location.href='/board/modify?bno=<c:out value="${board.bno}" />'">Modify</button>
+				<button data-oper='list' class="btn btn-info"	onclick="location.href='/board/list'">List</button>
 
 				<form id="operForm" action="/board/modify" method="get">
-					<input type="hidden" id="bno" name="bno"
-						value="<c:out value='${board.bno }'/>" /> <input type="hidden"
-						name="pageNum" value="<c:out value='${cri.pageNum}'/>" /> <input
-						type="hidden" name="amount" value="<c:out value='${cri.amount}'/>" />
-					<input type="hidden" name="type"
-						value="<c:out value='${cri.type}' />" /> <input type="hidden"
-						name="keyword" value="<c:out value='${cri.keyword}' />" />
+					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno }'/>" /> 
+						<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}'/>" /> 
+						<input type="hidden" name="amount" value="<c:out value='${cri.amount}'/>" />
+					<input type="hidden" name="type" value="<c:out value='${cri.type}' />" /> 
+					<input type="hidden" name="keyword" value="<c:out value='${cri.keyword}' />" />
 				</form>
 
 			</div>
@@ -90,8 +84,8 @@
 					<li class="left clearfix" data-rno="12">
 						<div>
 							<div class="header">
-								<strong class="primary-font">user00</strong> <small
-									class="pull-right text-muted">2022-02-02 12:12 </small>
+								<strong class="primary-font">user00</strong> 
+								<small class="pull-right text-muted">2022-02-02 12:12 </small>
 							</div>
 							<p>Good job!</p>
 						</div>
