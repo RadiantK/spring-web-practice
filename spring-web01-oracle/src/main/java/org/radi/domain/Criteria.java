@@ -37,8 +37,8 @@ public class Criteria {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", this.pageNum)
 				.queryParam("amount", this.getAmount())
-				.queryParam("amount", this.getType())
-				.queryParam("amount", this.getKeyword());
+				.queryParam("type", this.getType())
+				.queryParam("keyword", this.getKeyword());
 		
 		return builder.toUriString();
 	}
