@@ -13,7 +13,7 @@
 		DELETE FROM tbl_attach WHERE uuid = #{uuid}
 	</delete>
 	
-	<select id="findByBno">
+	<select id="findByBno" resultType="org.radi.domain.BoardAttachVO">
 		SELECT * FROM tbl_attach WHERE bno = #{bno}
 	</select>
 </mapper>

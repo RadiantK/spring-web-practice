@@ -2,6 +2,7 @@ package org.radi.service;
 
 import java.util.List;
 
+import org.radi.domain.BoardAttachVO;
 import org.radi.domain.BoardVO;
 import org.radi.domain.Criteria;
 
@@ -20,4 +21,6 @@ public interface BoardService {
 	public List<BoardVO> getList(Criteria cri);
 	
 	public int getTotal(Criteria cri);
+	
+	public List<BoardAttachVO> getAttachList(Long bno);
 }
