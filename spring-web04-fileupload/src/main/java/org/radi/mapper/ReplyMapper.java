@@ -21,4 +21,6 @@ public interface ReplyMapper {
 	int delete(Long rno);
 	
 	int update(ReplyVO reply);
+	
+	int deleteAll(Long bno);
 }
