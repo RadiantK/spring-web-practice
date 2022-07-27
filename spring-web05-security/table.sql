@@ -104,3 +104,15 @@ create table tbl_member_auth (
     auth varchar2(50) not null,
     constraint fk_member_auth foreign key (userid) references tbl_member (userid)
 );
+
+
+-- 스프링 시큐리티 remember-me
+-- series 사용자의 초기 로그인을 식별하고, 원래 session에서 자동 로그인한 경우 일관성을 유지하는 값
+-- token remember-me 기능을 사용하여 로그인한 경우 매번 갱신되는 고유한 값
+create table persistent_logins (
+    username varchar2(64) not null,
+    series varchar2(64),
+    token varchar2(64) not null,
+    last_used timestamp not null,
+    constraint pk_logins PRIMARY KEY (series)
+);
