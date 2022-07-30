@@ -80,6 +80,50 @@ AOP는 관점 지향 프로그래밍이라는 뜻으로 프로그래밍에 있�
 - AuthenticationProvider(인증 제공자) : 실제 인증 작업을 진행. 이 때 인증된 정보에는 권한에 대한 정보를 같이 전달되는데 이 처리는 UserDetailsService와 관련됨
 - UserDetailsService인터페이스 : 실제 사용자의 정보와 사용자가 가진 권한의 정보를 처리해서 다시 반환
 
+## 스프링 표현식(SPEL: spring expression language)
+
+hasRole([role])
+현재 로그인된 사용자가 지정된 role을 가지고 있으면 true를 반환합니다. 제공된 role이 'ROLE_'로 시작하지 않으면 기본적으로 'ROLE_'를 추가합니다. 이것은 DefaultWebSecurityExpressionHandler에서 defaultRolePrefix를 수정하여 커스터마이즈할 수 있습니다.
+
+hasAnyRole([role1,role2])
+현재 로그인된 사용자가 콤마(,)로 분리하여 주어진 role들 중 하나라도 가지고 있으면 true를 반환합니다. 제공된 role이 'ROLE_'로 시작하지 않으면 기본적으로 'ROLE_'를 추가합니다. 이것은 DefaultWebSecurityExpressionHandler에서 defaultRolePrefix를 수정하여 커스터마이즈할 수 있습니다.
+
+hasAuthority([authority])
+현재 로그인된 사용자가 지정된 권한이 있으면 true를 반환합니다.
+
+hasAnyAuthority([authority1,authority2])
+현재 로그인된 사용자가 콤마(,)로 분리하여 주어진 권한들중 하나라도 가지고 있으면 true를 반환합니다.
+
+principal
+현재 사용자를 나타내는 principal 객체에 직접 접근할 수 있습니다.
+
+authentication
+SecurityContext로 부터 얻은 Authentication 객체에 직접 접근할 수 있습니다.
+
+permitAll
+항상 true로 평가 됩니다.
+
+denyAll
+항상 false로 평가 됩니다.
+
+isAnonymous()
+현재 사용자가 익명사용자(로그인 안됨) 사용자이면 true를 반환합니다.
+
+isRememberMe()
+현재 로그인된 사용자가 remember-me 사용자이면 true를 반환합니다.(로그인 정보 기억 기능에 의한 사용자)
+
+isAuthenticated()
+현재 사용자가 로그인된 사용자라면 true를 반환합니다.
+
+isFullyAuthenticated()
+로그인 정보 기억(remember-me)이 아니라 아이디/비밀번호를 입력하여 로그인 했다면 true를 반환합니다.
+
+hasPermission(Object target, Object permission)
+사용자가 주어진 권한으로 제공된 대상에 액세스 할 수 있으면 true 를 반환합니다. 예, hasPermission(domainObject, 'read')
+
+hasPermission(Object targetId, String targetType, Object permission)
+사용자가 주어진 권한으로 제공된 대상에 액세스 할 수 있으면 true 를 반환합니다. 예, hasPermission(1, 'com.example.domain.Message', 'read')
+
 <br/>
 <br/>
 <br/>
